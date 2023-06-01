@@ -15,7 +15,6 @@ const form = () => {
 
   function salvar(dados) {
     axios.post('/api/disciplinas', dados)
-    disciplinas.push(dados);
     push("/disciplinas");
   }
 

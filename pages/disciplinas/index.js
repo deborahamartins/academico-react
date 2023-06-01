@@ -7,25 +7,31 @@ import { AiOutlineDelete } from "react-icons/ai";
 import { BsFillPencilFill } from "react-icons/bs";
 
 const index = () => {
-  const [disciplinas, setDisciplinas] = useState([])
+  const [disciplinas, setDisciplinas] = useState([]);
 
   useEffect(() => {
-    axios.get('/api/disciplinas').then(resultado => {
-      setDisciplinas(resultado.data)
-    })
-  }, [])
+    axios.get("/api/disciplinas").then((resultado) => {
+      setDisciplinas(resultado.data);
+    });
+  }, []);
 
- 
-  
-  function excluir(id){
-    if (confirm('Deseja realmente excluir o registro?')){
-    const disciplinas = getAll()
-    disciplinas.splice(id, 1)
-    window.localStorage.setItem('disciplinas', JSON.stringify(disciplinas))
-    setDisciplinas(disciplinas)
+  useEffect(() => {
+    getAll();
+  }, []);
+
+  function getAll() {
+    axios.get("/api/disciplinas").then((resultado) => {
+      setDisciplinas(resultado.data);
+    });
   }
-}
-  
+
+  function excluir(id) {
+    if (confirm("Deseja realmente excluir o registro?")) {
+      axios.delete("/api/disciplinas/" + id);
+      getAll();
+    }
+  }
+
   return (
     <Pagina titulo="Disciplinas">
       <Link href={"/disciplinas/form"} className="btn btn-primary mb-3">
@@ -40,14 +46,17 @@ const index = () => {
           </tr>
         </thead>
         <tbody>
-            {disciplinas.map((item, i) => (
-              <tr key={i}>
-                <td>
-                  <Link href={'/disciplinas/' + i}>
-                    <BsFillPencilFill className='me-2 text-primary' />
-                  </Link>                  
-                  <AiOutlineDelete onClick={() => excluir (index)} className='text-danger'/>
-                </td>
+          {disciplinas.map((item) => (
+            <tr key={item.id}>
+              <td>
+                <Link href={"/disciplinas/" + item.id}>
+                  <BsFillPencilFill className="me-2 text-primary" />
+                </Link>
+                <AiOutlineDelete
+                  onClick={() => excluir(item.id)}
+                  className="text-danger"
+                />
+              </td>
               <td>{item.nome}</td>
               <td>{item.curso}</td>
             </tr>
