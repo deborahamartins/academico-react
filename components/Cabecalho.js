@@ -6,7 +6,7 @@ const Cabecalho = () => {
     <>
       <Navbar bg="dark" variant="dark">
         <Container>
-          <Navbar.Brand href="/">Home</Navbar.Brand>
+          <Navbar.Brand href="#">Home</Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Link href="/cursos">Cursos</Nav.Link>
             <Nav.Link href="/disciplinas">Disciplinas</Nav.Link>
