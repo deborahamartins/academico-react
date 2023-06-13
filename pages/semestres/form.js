@@ -1,4 +1,5 @@
 import Pagina from "@/components/Pagina";
+import semestreValidator from "@/validators/semestreValidator";
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -11,7 +12,7 @@ import { IoMdArrowRoundBack } from "react-icons/io";
 const form = () => {
   const { push } = useRouter();
 
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, formState: { errors } } = useForm();
 
   function salvar(dados) {
     axios.post('/api/semestres', dados)
@@ -23,15 +24,27 @@ const form = () => {
       <Form>
       <Form.Group className="mb-3" controlId="nome">
           <Form.Label>Nome</Form.Label>
-          <Form.Control type="text" {...register("nome")} />
+          <Form.Control type="text" {...register("nome", semestreValidator.nome)} />
+          {
+            errors.nome &&
+            <small>{errors.nome.message}</small>
+          }
         </Form.Group>
         <Form.Group className="mb-3" controlId="dataInicio">
           <Form.Label>Data de Início</Form.Label>
-          <Form.Control type="date" {...register("dataInicio")} />
+          <Form.Control type="date" {...register("dataInicio", semestreValidator.dataInicio)} />
+          {
+            errors.dataInicio &&
+            <small>{errors.dataInicio.message}</small>
+          }
         </Form.Group>
         <Form.Group className="mb-3" controlId="dataFim">
           <Form.Label>Data de Fim</Form.Label>
-          <Form.Control type="date" {...register("dataFim")} />
+          <Form.Control type="date" {...register("dataFim", semestreValidator.dataFim)} />
+          {
+            errors.dataFim &&
+            <small>{errors.dataFim.message}</small>
+          }
         </Form.Group>
 
         <div className="text-center">

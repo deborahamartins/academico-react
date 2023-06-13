@@ -1,4 +1,5 @@
 import Pagina from "@/components/Pagina";
+import professorValidator from "@/validators/professorValidator";
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -11,7 +12,7 @@ import { IoMdArrowRoundBack } from "react-icons/io";
 const form = () => {
   const { push } = useRouter();
 
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, formState: { errors } } = useForm();
 
   function salvar(dados) {
     axios.post('/api/professores', dados)
@@ -23,47 +24,91 @@ const form = () => {
       <Form>
         <Form.Group className="mb-3" controlId="nome">
           <Form.Label>Nome</Form.Label>
-          <Form.Control type="text" {...register("nome")} />
+          <Form.Control type="text" {...register("nome", professorValidator.nome)} />
+          {
+            errors.nome &&
+            <small>{errors.nome.message}</small>
+          }
         </Form.Group>
         <Form.Group className="mb-3" controlId="cpf">
           <Form.Label>CPF</Form.Label>
-          <Form.Control type="number" {...register("cpf")} />
+          <Form.Control type="number" {...register("cpf", professorValidator.cpf)} />
+          {
+            errors.cpf &&
+            <small>{errors.cpf.message}</small>
+          }
         </Form.Group>
         <Form.Group className="mb-3" controlId="matricula">
           <Form.Label>Matrícula</Form.Label>
-          <Form.Control type="text" {...register("matricula")} />
+          <Form.Control type="text" {...register("matricula", professorValidator.matricula)} />
+          {
+            errors.matricula &&
+            <small>{errors.matricula.message}</small>
+          }
         </Form.Group>
         <Form.Group className="mb-3" controlId="salario">
           <Form.Label>Salário</Form.Label>
-          <Form.Control type="number" {...register("salario")} />
+          <Form.Control type="number" {...register("salario", professorValidator.salario)} />
+          {
+            errors.salario &&
+            <small>{errors.salario.message}</small>
+          }
         </Form.Group>
         <Form.Group className="mb-3" controlId="email">
           <Form.Label>E-mail</Form.Label>
-          <Form.Control type="text" {...register("email")} />
+          <Form.Control type="text" {...register("email", professorValidator.email)} />
+          {
+            errors.email &&
+            <small>{errors.email.message}</small>
+          }
         </Form.Group>
         <Form.Group className="mb-3" controlId="telefone">
           <Form.Label>Telefone</Form.Label>
-          <Form.Control type="text" {...register("telefone")} />
+          <Form.Control type="text" {...register("telefone", professorValidator.telefone)} />
+          {
+            errors.telefone &&
+            <small>{errors.telefone.message}</small>
+          }
         </Form.Group>
         <Form.Group className="mb-3" controlId="cep">
           <Form.Label>CEP</Form.Label>
-          <Form.Control type="number" {...register("cep")} />
+          <Form.Control type="number" {...register("cep", professorValidator.cep)} />
+          {
+            errors.cep &&
+            <small>{errors.cep.message}</small>
+          }
         </Form.Group>
         <Form.Group className="mb-3" controlId="logradouro">
           <Form.Label>Logradouro</Form.Label>
-          <Form.Control type="text" {...register("logradouro")} />
+          <Form.Control type="text" {...register("logradouro", professorValidator.logradouro)} />
+          {
+            errors.logradouro &&
+            <small>{errors.logradouro.message}</small>
+          }
         </Form.Group>
         <Form.Group className="mb-3" controlId="complemento">
           <Form.Label>Complemento</Form.Label>
-          <Form.Control type="text" {...register("complemento")} />
+          <Form.Control type="text" {...register("complemento", professorValidator.complemento)} />
+          {
+            errors.complemento &&
+            <small>{errors.complemento.message}</small>
+          }
         </Form.Group>
         <Form.Group className="mb-3" controlId="numero">
           <Form.Label>Número</Form.Label>
-          <Form.Control type="number" {...register("numero")} />
+          <Form.Control type="number" {...register("numero", professorValidator.numero)} />
+          {
+            errors.numero &&
+            <small>{errors.numero.message}</small>
+          }
         </Form.Group>
         <Form.Group className="mb-3" controlId="bairro">
           <Form.Label>Bairro</Form.Label>
-          <Form.Control type="text" {...register("bairro")} />
+          <Form.Control type="text" {...register("bairro", professorValidator.bairro)} />
+          {
+            errors.bairro &&
+            <small>{errors.bairro.message}</small>
+          }
         </Form.Group>
 
         <div className="text-center">

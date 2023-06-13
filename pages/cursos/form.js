@@ -6,11 +6,12 @@ import { Button, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { AiOutlineCheck } from "react-icons/ai";
 import { IoMdArrowRoundBack } from "react-icons/io";
+import cursoValidator from "@/validators/cursoValidator";
 
 const form = () => {
   const { push } = useRouter();
 
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, formState: { errors } } = useForm();
 
   function salvar(dados) {
     const cursos = JSON.parse(window.localStorage.getItem("cursos")) || [];
@@ -19,20 +20,33 @@ const form = () => {
     push("/cursos");
   }
 
+
   return (
     <Pagina titulo="Curso">
       <Form>
         <Form.Group className="mb-3" controlId="nome">
           <Form.Label>Nome</Form.Label>
-          <Form.Control type="text" {...register("nome")} />
+          <Form.Control isInvalid={errors.nome} type="text" {...register("nome", cursoValidator.nome)} />
+          {
+            errors.nome &&
+            <small>{errors.nome.message}</small>
+          }
         </Form.Group>
         <Form.Group className="mb-3" controlId="duracao">
           <Form.Label>Duração</Form.Label>
-          <Form.Control type="text" {...register("duracao")} />
+          <Form.Control isInvalid={errors.duracao} type="text" {...register("duracao", cursoValidator.duracao)} />
+          {
+            errors.duracao &&
+            <small>{errors.duracao.message}</small>
+          }
         </Form.Group>
         <Form.Group className="mb-3" controlId="modalidade">
           <Form.Label>Modalidade</Form.Label>
-          <Form.Control type="text" {...register("modalidade")} />
+          <Form.Control isInvalid={errors.modalidade} type="text" {...register("modalidade", cursoValidator.modalidade)} />
+          {
+            errors.modalidade &&
+            <small>{errors.modalidade.message}</small>
+          }
         </Form.Group>
 
         <div className="text-center">
